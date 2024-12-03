@@ -1,6 +1,8 @@
-class HVLCClock {
+/**
+ * Hybrid Verifiable Logical Clock implementation
+ */
+export class HVLCClock {
     constructor() {
-        // Using Map instead of BTreeMap since JS doesn't have a direct equivalent
         this.inner = new Map();
         this.timestamp = Date.now() * 1000000; // Convert to nanoseconds
     }
@@ -11,8 +13,6 @@ class HVLCClock {
 
     merge(other) {
         const merged = new HVLCClock();
-        
-        // Merge all keys from both clocks
         const allKeys = new Set([...this.inner.keys(), ...other.inner.keys()]);
         
         allKeys.forEach(id => {
@@ -27,16 +27,11 @@ class HVLCClock {
         return merged;
     }
 
-    update(others, id) {
-        // Merge with all other clocks
-        let updated = others.reduce((acc, clock) => acc.merge(clock), this.clone());
+    update(clocks, id) {
+        let updated = clocks.reduce((acc, clock) => acc.merge(clock), this.clone());
         
-        // Update timestamp if no merges occurred
-        if (updated.timestamp === this.timestamp) {
-            updated.timestamp = Date.now() * 1000000;
-        }
+        updated.timestamp = Date.now() * 1000000; // Convert to nanoseconds
         
-        // Increment the specified ID
         updated.inner.set(id, (updated.inner.get(id) || 0) + 1);
         return updated;
     }
@@ -107,17 +102,15 @@ class HVLCClock {
         return cloned;
     }
 
-    calculateSha256() {
-        // Note: This requires a crypto library or Web Crypto API
-        // This is a simplified example using browser's crypto API
+    async calculateSha256() {
         const data = JSON.stringify({
             inner: Array.from(this.inner.entries()),
             timestamp: this.timestamp
         });
         
-        // This is async in real implementation
-        // You would need to use crypto.subtle.digest in browser
-        // or crypto module in Node.js
-        return crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+        const msgBuffer = new TextEncoder().encode(data);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 } 
