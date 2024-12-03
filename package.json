@@ -1,47 +1,20 @@
 {
   "name": "@peter-jim/hvlc",
   "version": "1.0.0",
-  "description": "A JavaScript implementation of Hybrid Verifiable Logical Clock (HVLC) for distributed systems",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "test": "jest --coverage",
-    "lint": "eslint src/**/*.js",
     "prepare": "npm run build"
   },
-  "keywords": [
-    "logical-clock",
-    "distributed-systems",
-    "vector-clock",
-    "hvlc",
-    "timestamp"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
     "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^25.0.8",
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "eslint": "^8.57.1",
+    "@rollup/plugin-commonjs": "^25.0.5",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "jest": "^29.7.0",
-    "rollup": "^4.28.0"
-  },
-  "files": [
-    "dist"
-  ],
-  "directories": {
-    "test": "tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/peter-jim/hvlc-js.git"
-  },
-  "bugs": {
-    "url": "https://github.com/peter-jim/hvlc-js/issues"
-  },
-  "homepage": "https://github.com/peter-jim/hvlc-js#readme"
+    "rollup": "^4.0.2"
+  }
 }
