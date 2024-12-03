@@ -4,7 +4,13 @@ A JavaScript implementation of Hybrid Vector Logical Clock (HVLC) for distribute
 
 ## Overview
 
-HVLC-JS implements a hybrid vector clock structure that combines physical timestamps with vector clock properties. It is designed for distributed systems that require both causal consistency and total ordering of events.
+This Hybrid Vector Logical Clock (HVLC) library implements a hybrid vector clock structure that combines physical timestamps with vector clock properties. It is designed for distributed systems that require both causal consistency and total ordering of events.
+
+## Core Components
+
+Each HVLC clock instance contains:
+- A mapping table (inner) that records logical clock values for each node ID
+- A physical timestamp used to provide total ordering when logical clock comparison is insufficient
 
 ### Key Features
 
